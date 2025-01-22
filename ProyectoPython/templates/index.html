@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Niveles de Embalses para 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .resultados {
+            margin-top: 20px;
+        }
+        .grafica {
+            width: 100%;
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predicción de Niveles de Agua en Embalses para 2025</h1>
+        <form action="/resultados" method="POST">
+            <label for="comunidad">Selecciona la Comunidad Autónoma:</label>
+            <select id="comunidad" name="comunidad">
+                <option value="">Seleccione una comunidad</option>
+                <option value="Andalucia">Andalucía</option>
+                <option value="Aragon">Aragón</option>
+                <option value="Asturias">Asturias</option>
+                <option value="Baleares">Islas Baleares</option>
+                <option value="Canarias">Islas Canarias</option>
+                <option value="Cantabria">Cantabria</option>
+                <option value="Castilla La Mancha">Castilla-La Mancha</option>
+                <option value="Castilla y Leon">Castilla y León</option>
+                <option value="Cataluña">Cataluña</option>
+                <option value="Extremadura">Extremadura</option>
+                <option value="Galicia">Galicia</option>
+                <option value="Madrid">Comunidad de Madrid</option>
+                <option value="Murcia">Murcia</option>
+                <option value="Navarra">Navarra</option>
+                <option value="La Rioja">La Rioja</option>
+                <option value="Pais Vasco">País Vasco</option>
+                <option value="Valencia">Comunidad Valenciana</option>
+                <option value="Ceuta">Ceuta</option>
+                <option value="Melilla">Melilla</option>
+            </select>
+            <button type="submit">Ver Predicciones</button>
+        </form>
+        {% if mensaje %}
+        <p style="color: red;">{{ mensaje }}</p>
+        {% endif %}
+        {% if graficas %}
+        <div class="resultados">
+            <h2>Resultados de la Predicción:</h2>
+            {% for grafica in graficas %}
+            <div class="grafica">
+                <img src="{{ grafica.url }}" alt="Gráfica de Predicción">
+            </div>
+            {% endfor %}
+            <p>{{ resultado }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
